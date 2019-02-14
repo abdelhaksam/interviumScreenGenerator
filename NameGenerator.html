@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>InterVium question generator, version FR </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js/getGET.js"></script>
+    <script src="js/vue.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="generatorApp">
+        <form action="#">
+            <input type="text" v-model="name" v-on:input="setTimeout(inputChange,2)"><br>
+            <input type="text" v-model="line1" v-on:input="setTimeout(inputChange,2)">
+            <input type="text" v-model="line2" v-on:input="setTimeout(inputChange,2)">
+            <input type="button" value="Download" v-on:click="generateImg">
+        </form>
+        <br>
+
+        <svg ref="nameScreen" class="screen nameS" version="1.1" viewBox="0 0 508 285.75" xmlns="http://www.w3.org/2000/svg">
+            <rect :x="rectxposition" y="208.5" :width="widthRect" height="68" fill="#343434"/>
+                <text :style="textStyle" ref="name" :x="textxposition" :y="nameyposition" fill="#ffffff" xml:space="preserve"><tspan  font-size="23px" fill="#ffffff" font-weight="bold">{{name}}</tspan></text>
+                <text :style="textStyle" ref="line1" :x="textxposition" :y="line1yposition" fill="#f9f9f9" xml:space="preserve"><tspan fill="#f9f9f9" font-weight="300">{{line1}}</tspan></text>
+                <text :style="textStyle" ref="line2" :x="textxposition" :y="line2yposition" fill="#f9f9f9" xml:space="preserve"><tspan fill="#f9f9f9" font-weight="300">{{line2}}</tspan></text>
+            <rect :x="greenxposition" y="208.5" width="7" height="68" fill="#4a0"/>
+        </svg>
+
+
+        <div id="outputs" style="display:none;">
+            <canvas ref="nameCanvas" width="1920" height="1080"></canvas>
+            <img ref="outputImg" src="" alt="">
+            <a ref="link" href="" :download="name"></a>
+        </div>
+        <script charset="utf-8">
+            parameters=getParams(window.location.href);
+            var generatorApp=new Vue({
+                el:"#generatorApp",
+                data:{
+                    name:"",
+                    line1:"",
+                    line2:"",
+                    rectxposition:0,
+                    greenxposition:0,
+                    textxposition:33,
+                    nameyposition:236,
+                    line1yposition:253,
+                    line2yposition:265,
+                    widthRect:200, //initial width
+                    textStyle:"font-size:11px;",
+                },
+                mounted:function(){
+                    var textStyle;
+                    if(parameters.lang=="ar"){
+                        this.widthRect=220;
+
+                        this.rectxposition=508-this.widthRect;
+                        this.greenxposition=508-7;
+                        this.textxposition=508-33;
+
+                        this.name="فلان ابن فلتان";
+                        this.line1="اكتب هنا تعريف الشخص";
+                        this.line2="اكتب هنا ما تبقى تعريف الشخص";
+
+                        this.textStyle="direction:rtl; font-family:Cairo; font-size:10px;";
+
+                    }else{
+                        this.name="Flen BENFLEN";
+                        this.line1="Titre principal de la personne";
+                        this.line2="Sous-titre de la personne";
+                    }
+                },
+                methods:{
+                    inputChange: function(){
+                        this.regulateWidth();
+                        if(this.line2.replace(' ','')==''){
+                            this.nameyposition=242;
+                            this.line1yposition=259;
+                        }else{
+                            this.nameyposition=236;
+                            this.line1yposition=253;
+                        }
+                    },
+                    regulateWidth: function(){
+                        var w1 = this.$refs.name.clientWidth;
+                        var w2 = this.$refs.line1.clientWidth;
+                        var w3 = this.$refs.line2.clientWidth;
+                        var newW=w1;
+                        if(newW<w2){
+                            newW=w2;
+                        }
+                        if(newW<w3){
+                            newW=w3;
+                        }
+                        console.log(newW);
+                        if(parameters.lang=="ar"){
+                            //TODO make it extensible 
+                        }else{
+                            this.widthRect=newW-16;
+                        }
+                    },
+                    generateImg: function(){
+                        var svg = this.$refs.nameScreen;
+                        var img = this.$refs.outputImg;
+                        var canvas = this.$refs.nameCanvas;
+                        var link=this.$refs.link;
+                        // get svg data
+                        var xml = new XMLSerializer().serializeToString(svg);
+                        // make it base64
+                        var svg64 = btoa(unescape(encodeURIComponent(xml)));
+                        var b64Start = 'data:image/svg+xml;base64,';
+                        var image64 = b64Start + svg64;
+                        // set it as the source of the img element
+                        img.src = image64;
+                        // draw the image onto the canvas
+                        setTimeout(function(){
+                            canvas.getContext('2d').drawImage(img, 0, 0,1920,1080);
+                            var png64 = canvas.toDataURL("image/png");
+                            img.src=png64;
+                            // create the link
+                            link.href=png64;
+                            //trigger it
+                            link.click();
+                        },1);
+                    }
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

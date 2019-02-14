@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>InterVium question generator, version FR </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js/getGET.js"></script>
+    <script src="js/vue.js"></script>   
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="generatorApp">
+        <form action="#">
+            <select name="month" v-model="month">
+                <option disabled>---</option>
+                <option v-for="mth in months">{{mth.name}}</option>
+            </select>
+            <input type="text" name="year" v-model="year">
+            <input type="button" value="Download" v-on:click="generateImg">
+        </form>
+        <br>
+        <svg ref="outroScreen" class="screen" version="1.1" viewBox="0 0 508 285.75" xmlns="http://www.w3.org/2000/svg">
+            <rect x="7.5552e-6" y="11.25" width="508" height="285.75" color="#000000" color-rendering="auto" fill="#1e1e1e" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="isolation:auto;mix-blend-mode:normal;paint-order:normal"/>
+            <path d="m197.12 137.04v22.553h2.5358v-22.553zm23.172 3.4489v5.0715h-1.4542v2.2319h1.4542v11.8h2.4004v-11.8h2.5022v-2.2319h-2.5022v-5.0715zm-9.3302 4.7336c-1.7582 0-2.8404 0.54108-4.0576 2.0288v-1.6908h-2.4009v14.032h2.4009v-6.9991c0-3.6518 1.048-5.2069 3.4825-5.2069 1.1496 0 2.0626 0.43953 2.5022 1.1834 0.37194 0.57481 0.47336 1.2511 0.47336 2.7389v8.2837h2.4009v-8.6899c0-1.8259-0.23673-2.8736-0.77773-3.7527-0.77769-1.1834-2.3329-1.9275-4.0235-1.9275zm37.952 0c-1.3187 0-1.927 0.37209-3.1781 1.8598v-1.5219h-2.4009v14.032h2.4009v-7.4047c0-1.6906 0.1686-2.7049 0.54054-3.3812 0.40575-0.77769 1.319-1.2852 2.2319-1.2852 0.50719 0 0.81145 0.10142 1.4201 0.47336l1.1157-2.1637c-0.84532-0.47337-1.3524-0.60875-2.1301-0.60875zm-15.613 0.0336c-4.0237 0-6.796 3.0096-6.796 7.4052 0 4.328 2.8403 7.337 6.8978 7.337 2.8402 0 4.9026-1.2506 6.458-3.9894l-2.0288-1.1498c-1.3525 2.164-2.4682 2.9414-4.3279 2.9414-2.5359 0-4.328-1.8595-4.4633-4.7336h10.955v-0.40566c0-4.4632-2.6377-7.4052-6.6952-7.4052zm0.0341 2.1642c2.0626 0 3.6852 1.4201 4.1248 3.6179h-8.2501c0.33812-2.0964 2.0966-3.6179 4.1253-3.6179z" fill="#808080"/>
+            <path d="m250.81 137.04 9.1297 23.871 9.1632-23.871h-2.7388l-6.3908 17.177-6.3903-17.177zm21.608 1.4878c-0.94676 0-1.7244 0.7774-1.7244 1.6903 0 0.98056 0.77769 1.7586 1.7244 1.7586s1.7244-0.77769 1.7244-1.7244c0-0.94674-0.77769-1.7244-1.7244-1.7244zm26.856 6.6947c-1.4878 0-2.5024 0.54116-3.483 1.8598v-1.5219h-2.4004v14.032h2.4004v-7.6414c0-1.3525 0.16934-2.3334 0.50745-3.0096 0.47339-0.91294 1.4876-1.5214 2.5358-1.5214 1.7244 0 2.6035 1.2848 2.6035 3.8546v8.3178h2.4009v-7.7768c0-2.9417 0.98036-4.3956 3.0091-4.3956 1.7921 0 2.5363 1.0822 2.5363 3.652v8.5204h2.4004v-8.8925c0-1.6906-0.23672-2.7052-0.77771-3.5843-0.74388-1.1834-2.1638-1.8934-3.7868-1.8934-1.8259 0-3.2459 0.77775-4.0912 2.2655-0.8115-1.4539-2.1639-2.2655-3.8546-2.2655zm-28.073 0.33797v14.032h2.4009v-14.032zm6.7366 0v8.4532c0 2.0626 0.33792 3.1784 1.2846 4.2266 1.0144 1.1496 2.5361 1.758 4.2943 1.758 1.7244 0 3.2458-0.60842 4.2602-1.758 0.94673-1.0482 1.2847-2.164 1.2847-4.2266v-8.4532h-2.4004v8.183c0 1.3187-0.13546 2.0284-0.43976 2.637-0.47339 0.87913-1.5213 1.4201-2.7048 1.4201-1.2172 0-2.2655-0.54094-2.7389-1.4201-0.30429-0.60862-0.43976-1.3184-0.43976-2.637v-8.183z" fill="#4a0"/>
+            <text ref="qstText" x="253.94003" y="176.54909" font-size="14.5px" letter-spacing="0px" text-align="center" text-anchor="middle" word-spacing="0px" style="line-height:15px" xml:space="preserve">
+                <tspan fill="#f9f9f9" font-weight="300">{{month}}</tspan> <tspan fill="#f9f9f9" font-family="'Renner*'" font-weight="300">{{year}}</tspan>
+            </text>
+        </svg>
+
+        <div id="outputs" style="display:none;">
+            <canvas ref="outroCanvas" width="1920" height="1080"></canvas>
+            <img ref="outputImg" src="" alt="">
+            <a ref="link" href="" :download="month+year"></a>
+        </div>
+        <script charset="utf-8">
+            var monthList;
+
+            
+
+            var currentYear= new Date();
+            currentYear=currentYear.getFullYear();
+
+            var generatorApp=new Vue({
+                el:"#generatorApp",
+                data:{
+                    months:[],
+                    month:"",
+                    year:currentYear,
+                },
+                mounted:function(){
+                    parameters=getParams(window.location.href);
+                    if(parameters.lang=="ar"){
+                        monthList=[
+                                {name:'جانفي'},
+                                {name:'فيفري'},
+                                {name:'مارس'},
+                                {name:'أفريل'},
+                                {name:'ماي'},
+                                {name:'جوان'},
+                                {name:'جويلية'},
+                                {name:'أوت'},
+                                {name:'سبتمبر'},
+                                {name:'أكتوبر'},
+                                {name:'نوفمبر'},
+                                {name:'ديسمبر'},
+                            ];
+                        this.$refs.qstText.style="direction:rtl; font-family:Cairo";
+                    }else if(parameters.lang=="en"){
+                        monthList=[
+                                {name:'January'},
+                                {name:'February'},
+                                {name:'March'},
+                                {name:'April'},
+                                {name:'May'},
+                                {name:'June'},
+                                {name:'July'},
+                                {name:'August'},
+                                {name:'September'},
+                                {name:'October'},
+                                {name:'November'},
+                                {name:'December'},
+                            ];
+                    }else{
+                        monthList=[
+                                {name:'Janvier'},
+                                {name:'Février'},
+                                {name:'Mars'},
+                                {name:'Avril'},
+                                {name:'Mai'},
+                                {name:'Juin'},
+                                {name:'Juillet'},
+                                {name:'Aout'},
+                                {name:'Septembre'},
+                                {name:'Octobre'},
+                                {name:'Novembre'},
+                                {name:'Décembre'},
+                            ];
+                    }
+                    this.months=monthList;
+                },
+                methods:{
+                    generateImg: function(){
+                        var svg = this.$refs.outroScreen;
+                        var img = this.$refs.outputImg;
+                        var canvas = this.$refs.outroCanvas;
+                        var link=this.$refs.link;
+                        // get svg data
+                        var xml = new XMLSerializer().serializeToString(svg);
+                        // make it base64
+                        var svg64 = btoa(unescape(encodeURIComponent(xml)));
+                        var b64Start = 'data:image/svg+xml;base64,';
+                        var image64 = b64Start + svg64;
+                        // set it as the source of the img element
+                        img.src = image64;
+                        // draw the image onto the canvas
+                        setTimeout(function(){
+                            canvas.getContext('2d').drawImage(img, 0, 0,1920,1080);
+                            var png64 = canvas.toDataURL("image/png");
+                            img.src=png64;
+                            // create the link
+                            link.href=png64;
+                            //trigger it
+                            link.click();
+                        },1);
+                    }
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

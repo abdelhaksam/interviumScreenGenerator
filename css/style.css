@@ -1,0 +1,38 @@
+@font-face {
+    font-family: Renner;
+    src: url(../fontes/renner-book.otf);
+    font-weight: normal;
+}
+@font-face {
+    font-family: Renner;
+    src: url(../fontes/renner-light.otf);
+    font-weight: 300;
+}
+@font-face {
+    font-family: Renner;
+    src: url(../fontes/renner-bold.otf);
+    font-weight: bold;
+}
+@font-face {
+    font-family: Cairo;
+    src: url(../fontes/cairo-regular.otf);
+    font-weight: normal;
+}
+@font-face {
+    font-family: Cairo;
+    src: url(../fontes/cairo-light.otf);
+    font-weight: 300;
+}
+@font-face {
+    font-family: Cairo;
+    src: url(../fontes/cairo-bold.otf);
+    font-weight: bold;
+}
+
+
+.screen{
+    max-height: 500px;
+}
+.screen text{
+    font-family: Renner;
+}
