@@ -1,15 +1,15 @@
 @font-face {
-    font-family: 'Renner';
+    font-family: 'Renner*';
     src: url(../fontes/renner-book.otf);
     font-weight: normal;
 }
 @font-face {
-    font-family: 'Renner Light';
+    font-family: 'Renner* Light';
     src: url(../fontes/renner-light.otf);
     font-weight: 300;
 }
 @font-face {
-    font-family: 'Renner Bold';
+    font-family: 'Renner* Bold';
     src: url(../fontes/renner-bold.otf);
     font-weight: bold;
 }
